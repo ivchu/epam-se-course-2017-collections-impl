@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
-public class CustomHashMap implements Map {
+public class CustomHashMap<K,V> implements Map<K,V> {
 
     @Override
     public int size() {
@@ -27,22 +27,22 @@ public class CustomHashMap implements Map {
     }
 
     @Override
-    public Object get(Object key) {
+    public V get(Object key) {
         return null;
     }
 
     @Override
-    public Object put(Object key, Object value) {
+    public V put(K key, V value) {
         return null;
     }
 
     @Override
-    public Object remove(Object key) {
+    public V remove(Object key) {
         return null;
     }
 
     @Override
-    public void putAll(Map m) {
+    public void putAll(Map<? extends K, ? extends V> m) {
 
     }
 
@@ -52,17 +52,17 @@ public class CustomHashMap implements Map {
     }
 
     @Override
-    public Set keySet() {
+    public Set<K> keySet() {
         return null;
     }
 
     @Override
-    public Collection values() {
+    public Collection<V> values() {
         return null;
     }
 
     @Override
-    public Set<Entry> entrySet() {
+    public Set<Entry<K, V>> entrySet() {
         return null;
     }
 }
