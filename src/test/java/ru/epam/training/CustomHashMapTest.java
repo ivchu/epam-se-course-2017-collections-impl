@@ -14,7 +14,7 @@ public class CustomHashMapTest {
     private Map<Integer, String> m;
 
     @Before
-    public void init(){
+    public void init() {
         m = new CustomHashMap<>();
     }
 
@@ -22,20 +22,23 @@ public class CustomHashMapTest {
     public void testThatWeCanCreate() {
 
         assertThat(m, is(notNullValue()));
+
     }
 
     @Test
-    public void testThatNewMapIsEmpty(){
+    public void testThatNewMapIsEmpty() {
         assertThat(m.isEmpty(), is(true));
     }
 
     @Test
-    public void testThatNewMapDoesNotContainAnyObject() {
-
+    public void testThatOnNewMapContainKeyMethodReturnFalseForAnyObject() {
+        assertThat(m.containsKey(new Integer(1)), is(false));
     }
 
     @Test
     public void testThatWeCanPutKeyValuePairAndCanCheckIt() {
+        m.put(new Integer(3), "abc");
+        assertThat(m.containsKey(3), is(true));
     }
 
     @Test
