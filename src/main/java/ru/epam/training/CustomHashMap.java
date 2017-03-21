@@ -1,15 +1,12 @@
 package ru.epam.training;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
-public class CustomHashMap<K,V> implements Map<K,V> {
+public class CustomHashMap<K, V> implements Map<K, V> {
 
     private static final int DEFAULT_CAPACITY = 16;
 
-    private CustomEntry<K,V>[] buckets = new CustomEntry[DEFAULT_CAPACITY];
+    private CustomEntry<K, V>[] buckets = new CustomEntry[DEFAULT_CAPACITY];
 
     @Override
     public int size() {
@@ -23,7 +20,11 @@ public class CustomHashMap<K,V> implements Map<K,V> {
 
     @Override
     public boolean containsKey(Object key) {
-        return buckets[0].key.equals(key);
+        CustomEntry<K, V> bucket = buckets[0];
+        if(bucket != null){
+            return bucket.key.equals(key);
+        }
+        return false;
     }
 
     @Override
@@ -38,7 +39,9 @@ public class CustomHashMap<K,V> implements Map<K,V> {
 
     @Override
     public V put(K key, V value) {
-        buckets[0] = new CustomEntry<>(key,value);
+        Objects.requireNonNull(key);
+
+        buckets[0] = new CustomEntry<>(key, value);
         return null; //TODO implement return prev value
     }
 
@@ -72,22 +75,22 @@ public class CustomHashMap<K,V> implements Map<K,V> {
         return null;
     }
 
-    private class CustomEntry<K,V> implements Iterator<CustomEntry<K,V>> {
+    private class CustomEntry<K, V> implements Iterator<CustomEntry<K, V>> {
 
         private final K key;
         private V value;
-        private CustomEntry<K,V> next = null;
+        private CustomEntry<K, V> next = null;
 
         CustomEntry(K key, V value) {
             this.key = key;
             this.value = value;
         }
 
-        public boolean hasNext(){
+        public boolean hasNext() {
             return this.next != null;
         }
 
-        public CustomEntry<K,V> next(){
+        public CustomEntry<K, V> next() {
             return this.next;
         }
 

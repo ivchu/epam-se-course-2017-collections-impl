@@ -1,6 +1,7 @@
 package ru.epam.training;
 
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 
 import java.util.Map;
@@ -9,6 +10,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsNull.notNullValue;
 
+@FixMethodOrder
 public class CustomHashMapTest {
 
     private Map<Integer, String> m;
@@ -41,8 +43,9 @@ public class CustomHashMapTest {
         assertThat(m.containsKey(3), is(true));
     }
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void testThatWeCantPutNullKey() {
+        m.put(null, "abc");
     }
 
     @Test
