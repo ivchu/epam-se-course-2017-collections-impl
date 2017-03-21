@@ -7,7 +7,9 @@ import java.util.Set;
 
 public class CustomHashMap<K,V> implements Map<K,V> {
 
-    private CustomEntry<K,V>[] buckets = new CustomEntry[16];
+    private static final int DEFAULT_CAPACITY = 16;
+
+    private CustomEntry<K,V>[] buckets = new CustomEntry[DEFAULT_CAPACITY];
 
     @Override
     public int size() {
@@ -76,13 +78,9 @@ public class CustomHashMap<K,V> implements Map<K,V> {
         private V value;
         private CustomEntry<K,V> next = null;
 
-        public CustomEntry(K key, V value) {
+        CustomEntry(K key, V value) {
             this.key = key;
             this.value = value;
-        }
-
-        public void setNext(CustomEntry<K, V> next) {
-            this.next = next;
         }
 
         public boolean hasNext(){
@@ -91,6 +89,10 @@ public class CustomHashMap<K,V> implements Map<K,V> {
 
         public CustomEntry<K,V> next(){
             return this.next;
+        }
+
+        void setNext(CustomEntry<K, V> next) {
+            this.next = next;
         }
     }
 }
