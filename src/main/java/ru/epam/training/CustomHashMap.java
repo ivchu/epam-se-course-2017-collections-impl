@@ -13,7 +13,7 @@ public class CustomHashMap<K,V> implements Map<K,V> {
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return true;
     }
 
     @Override

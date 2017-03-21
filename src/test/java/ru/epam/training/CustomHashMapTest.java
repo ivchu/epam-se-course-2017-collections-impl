@@ -1,5 +1,6 @@
 package ru.epam.training;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Map;
@@ -10,16 +11,22 @@ import static org.hamcrest.core.IsNull.notNullValue;
 
 public class CustomHashMapTest {
 
+    private Map<Integer, String> m;
+
+    @Before
+    public void init(){
+        m = new CustomHashMap<>();
+    }
+
     @Test
     public void testThatWeCanCreate() {
-        Map m = new CustomHashMap();
 
         assertThat(m, is(notNullValue()));
     }
 
     @Test
     public void testThatNewMapIsEmpty(){
-
+        assertThat(m.isEmpty(), is(true));
     }
 
     @Test
@@ -70,7 +77,6 @@ public class CustomHashMapTest {
     @Test(expected = ClassCastException.class)
     public void testValueContainsMethodThrowsExceptionOnWrongInputValueClass() {
     }
-
 
     @Test
     public void testThatMapCalculateItsSizeProperly() {
