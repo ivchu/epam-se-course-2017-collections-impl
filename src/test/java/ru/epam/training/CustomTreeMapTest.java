@@ -6,9 +6,13 @@ import org.junit.Test;
 
 import java.util.Map;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsNull.notNullValue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 @FixMethodOrder
 public class CustomTreeMapTest {
@@ -50,22 +54,37 @@ public class CustomTreeMapTest {
 
     @Test
     public void testThatWeCanPutNullValue() {
-    }
-
-    @Test(expected = OutOfMemoryError.class)
-    public void testThatMapHaveInfiniteCapacity() {
+        m.put(1,null);
+        assertThat(m.containsKey(1), is(true));
     }
 
     @Test
     public void testThatMapCanPutPairWithKeyThatAlreadyPresented() {
+
+        String oldValue = "aaaa";
+        String newValue = "bbbb";
+
+        m.put(1, oldValue);
+        m.put(1, newValue);
+
+        assertFalse(m.containsValue(oldValue));
+        assertTrue(m.containsValue(newValue));
     }
 
     @Test
-    public void testThatMapCanContainsKeysWithSameHashCode() {
+    public void testThatIfWePutNewValueOnExistingKeyPreviousValueWillBeReturned(){
+        String oldValue = "aaaa";
+        String newValue = "bbbb";
+
+        m.put(1, oldValue);
+        String returnedValue = m.put(1, newValue);
+
+        assertThat(oldValue, is(equalTo(returnedValue)));
     }
 
     @Test(expected = NullPointerException.class)
     public void testThatContainsKeyMethodThrowsExceptionOnNullKey() {
+        m.containsKey(null);
     }
 
     @Test(expected = ClassCastException.class)

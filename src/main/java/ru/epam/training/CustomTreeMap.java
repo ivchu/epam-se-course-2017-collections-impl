@@ -2,9 +2,13 @@ package ru.epam.training;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
-public class CustomTreeMap<K extends Comparable<K>,V> implements Map<K,V> {
+public class CustomTreeMap<K extends Comparable<K>, V> implements Map<K, V> {
+
+    private Node<K, V> root;
+
     @Override
     public int size() {
         return 0;
@@ -12,17 +16,25 @@ public class CustomTreeMap<K extends Comparable<K>,V> implements Map<K,V> {
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean containsKey(Object key) {
-        return false;
+        Objects.requireNonNull(key);
+
+        if (root == null) return false;
+        return root.key.equals(key);
     }
 
     @Override
     public boolean containsValue(Object value) {
-        return false;
+        if (root == null) return false;
+        if (root.value == null) {
+            return value == null;
+        } else {
+            return root.value.equals(value);
+        }
     }
 
     @Override
@@ -32,6 +44,18 @@ public class CustomTreeMap<K extends Comparable<K>,V> implements Map<K,V> {
 
     @Override
     public V put(K key, V value) {
+        Objects.requireNonNull(key);
+
+        if (root == null) {
+            root = new Node<>(key, value);
+            return null;
+        } else {
+            if(root.key.equals(key)){
+                V oldValue = root.value;
+                root.value = value;
+                return oldValue;
+            }
+        }
         return null;
     }
 
@@ -63,5 +87,18 @@ public class CustomTreeMap<K extends Comparable<K>,V> implements Map<K,V> {
     @Override
     public Set<Entry<K, V>> entrySet() {
         return null;
+    }
+
+    private class Node<K, V> {
+        private final K key;
+        private V value;
+        private Node left;
+        private Node right;
+
+        public Node(K key, V value) {
+            this.key = key;
+            this.value = value;
+        }
+
     }
 }
