@@ -24,7 +24,8 @@ public class CustomTreeMap<K extends Comparable<K>, V> implements Map<K, V> {
         Objects.requireNonNull(key);
 
         if (root == null) return false;
-        return root.key.equals(key);
+        root.key.compareTo((K) key);
+        return find(root, (K) key) != null;
     }
 
     @Override
@@ -45,18 +46,35 @@ public class CustomTreeMap<K extends Comparable<K>, V> implements Map<K, V> {
     @Override
     public V put(K key, V value) {
         Objects.requireNonNull(key);
+        root = put(root, key, value);
+        return value;
+    }
 
-        if (root == null) {
-            root = new Node<>(key, value);
-            return null;
-        } else {
-            if(root.key.equals(key)){
-                V oldValue = root.value;
-                root.value = value;
-                return oldValue;
-            }
+    private Node<K, V> put(Node<K, V> node, K key, V value) {
+        if (node == null) {
+            return new Node<>(key, value);
         }
-        return null;
+        if (node.key.equals(key)) {
+            node.value = value;
+        } else if (node.key.compareTo(key) > 0) {
+            node.left = put(node.left, key, value);
+        } else {
+            node.right = put(node.right, key, value);
+        }
+        return node;
+    }
+
+    private Node<K, V> find(Node<K, V> node, K key) {
+        if (node == null) {
+            return null;
+        }
+        if (node.key.equals(key)) {
+            return node;
+        } else if (node.key.compareTo(key) > 0) {
+            return find(node.left, key);
+        } else {
+            return find(node.right, key);
+        }
     }
 
     @Override
@@ -89,11 +107,11 @@ public class CustomTreeMap<K extends Comparable<K>, V> implements Map<K, V> {
         return null;
     }
 
-    private class Node<K, V> {
+    private class Node<K extends Comparable<K>, V> {
         private final K key;
         private V value;
-        private Node left;
-        private Node right;
+        private Node<K, V> left;
+        private Node<K, V> right;
 
         public Node(K key, V value) {
             this.key = key;
@@ -101,4 +119,5 @@ public class CustomTreeMap<K extends Comparable<K>, V> implements Map<K, V> {
         }
 
     }
+
 }

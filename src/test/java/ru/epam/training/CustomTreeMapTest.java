@@ -5,12 +5,12 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 
 import java.util.Map;
+import java.util.stream.IntStream;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsNull.notNullValue;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -54,7 +54,7 @@ public class CustomTreeMapTest {
 
     @Test
     public void testThatWeCanPutNullValue() {
-        m.put(1,null);
+        m.put(1, null);
         assertThat(m.containsKey(1), is(true));
     }
 
@@ -72,7 +72,7 @@ public class CustomTreeMapTest {
     }
 
     @Test
-    public void testThatIfWePutNewValueOnExistingKeyPreviousValueWillBeReturned(){
+    public void testThatIfWePutNewValueOnExistingKeyPreviousValueWillBeReturned() {
         String oldValue = "aaaa";
         String newValue = "bbbb";
 
@@ -89,14 +89,37 @@ public class CustomTreeMapTest {
 
     @Test(expected = ClassCastException.class)
     public void testThatContainsKeyMethodThrowsExceptionOnWrongKeyClass() {
+        m.put(1, ""); //TODO need to remove
+        m.containsKey(new String(""));
     }
 
     @Test
     public void testContainsValueMethodWorksProperlyOn() {
+        String value = "aaaa";
+
+        m.put(1, value);
+
+        assertTrue(m.containsValue(value));
     }
 
     @Test
     public void testContainsValueMethodWorksProperlyOnNullInputValue() {
+        String value = "aaaa";
+
+        m.put(1, value);
+
+        assertFalse(m.containsValue(null));
+    }
+
+    @Test
+    public void testThatWeCanPut10DifferentKeysInMap() {
+        IntStream.range(1, 10).forEach(
+                i -> m.put(i, String.valueOf(i))
+        );
+
+        IntStream.range(1, 10).forEach(
+                i -> assertTrue(m.containsKey(i))
+        );
     }
 
     @Test(expected = ClassCastException.class)
