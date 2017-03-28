@@ -11,6 +11,7 @@ import java.util.List;
 import static junit.framework.TestCase.assertFalse;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(Parameterized.class)
@@ -79,5 +80,15 @@ public class CustomListsTest {
         }
 
         assertThat(list.size(), is(size));
+    }
+
+    @Test
+    public void testThatWeCanGetElementByIndex() {
+
+        list.add("aaa");
+        list.add("aa2");
+        list.add("aad");
+
+        assertThat(list.get(1), is(equalTo("aa2")));
     }
 }

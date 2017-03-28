@@ -99,7 +99,11 @@ public class CustomLinkedList<T> implements List<T> {
 
     @Override
     public T get(int index) {
-        return null;
+        Node<T> current = head.next;
+        for (int i = 0; i < index; i++) {
+            current = current.next;
+        }
+        return current.value;
     }
 
     @Override
