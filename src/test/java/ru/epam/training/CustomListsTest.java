@@ -117,6 +117,21 @@ public class CustomListsTest {
     public void testThatWeCanDeleteElementByIndex() throws Exception {
         fillList();
 
+        list.remove(2);
+
+        assertFalse(list.contains("aa2a"));
+    }
+
+    @Test
+    public void testThatWeCanDeleteLastElement() throws Exception {
+        fillList();
+
+        int prevSize = list.size();
+
+        list.remove(list.size() - 1);
+
+        assertFalse(list.contains("aa4a"));
+        assertThat(list.size(), is(equalTo(prevSize - 1)));
     }
 
     private void fillList() {
