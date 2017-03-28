@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import static junit.framework.TestCase.assertFalse;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -49,4 +50,23 @@ public class CustomListsTest {
         assertTrue(list.contains(value));
     }
 
+    @Test
+    public void testThatListNotContainsElementThatWasntAddedToList() throws Exception {
+        list.add("fff");
+        assertFalse(list.contains("ccc"));
+    }
+
+    @Test
+    public void testThatListContainsNullIfItWasAdded()  {
+
+        list.add(null);
+
+        assertTrue(list.contains(null));
+    }
+
+    @Test
+    public void testThatListNotContainsNullIfItWasNotAdded()  {
+        list.add("fff");
+        assertFalse(list.contains(null));
+    }
 }
