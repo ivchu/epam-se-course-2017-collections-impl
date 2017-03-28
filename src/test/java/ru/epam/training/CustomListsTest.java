@@ -8,21 +8,36 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertTrue;
+
 @RunWith(Parameterized.class)
 public class CustomListsTest {
 
-    private List<?> list;
+    private List<String> list;
 
-    public CustomListsTest(List<?> list) {
+    public CustomListsTest(List<String> list) {
         this.list = list;
     }
 
     @Parameterized.Parameters
     public static Collection<Object> data() {
         return Arrays.asList(new Object[]{
-//                new CustomArrayList(),
+                new CustomArrayList(),
                 new CustomLinkedList()
         });
+    }
+
+    @Test
+    public void testThatNewListIsEmpty() {
+        assertTrue(list.isEmpty());
+    }
+
+    @Test
+    public void testThatListNotEmptyAfterAddingElement() {
+        list.add("aaaa");
+        assertThat(list.isEmpty(), is(false));
     }
 
 }

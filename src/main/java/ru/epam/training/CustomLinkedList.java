@@ -7,6 +7,8 @@ import java.util.ListIterator;
 
 public class CustomLinkedList<T> implements List<T> {
 
+    private Node<T> head = new Node<>(null);
+
     @Override
     public int size() {
         return 0;
@@ -14,7 +16,7 @@ public class CustomLinkedList<T> implements List<T> {
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return !head.hasNext();
     }
 
     @Override
@@ -39,6 +41,11 @@ public class CustomLinkedList<T> implements List<T> {
 
     @Override
     public boolean add(T t) {
+        Node<T> iterator = head;
+        while (iterator.hasNext()) {
+            iterator = iterator.next;
+        }
+        iterator.next = new Node<>(t);
         return false;
     }
 
@@ -120,5 +127,20 @@ public class CustomLinkedList<T> implements List<T> {
     @Override
     public List<T> subList(int fromIndex, int toIndex) {
         return null;
+    }
+
+    private class Node<T> {
+
+        private Node<T> next;
+        private T value;
+
+        public Node(T value) {
+            this.value = value;
+        }
+
+        public boolean hasNext() {
+            return next != null;
+        }
+
     }
 }

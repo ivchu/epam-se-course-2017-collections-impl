@@ -7,6 +7,9 @@ import java.util.ListIterator;
 
 public class CustomArrayList<T> implements List<T> {
 
+    private Object[] data = new Object[10];
+    private int size = 0;
+
     @Override
     public int size() {
         return 0;
@@ -14,7 +17,7 @@ public class CustomArrayList<T> implements List<T> {
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return  size == 0;
     }
 
     @Override
@@ -39,6 +42,7 @@ public class CustomArrayList<T> implements List<T> {
 
     @Override
     public boolean add(T t) {
+        data[size++] = t;
         return false;
     }
 
