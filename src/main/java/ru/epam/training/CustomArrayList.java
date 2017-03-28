@@ -121,9 +121,10 @@ public class CustomArrayList<T> implements List<T> {
     @Override
     public T remove(int index) {
         int length = data.length - index;
+        T value = (T) data[index];
         System.arraycopy(data, index + 1, data, index, length-1);
         size--;
-        return null;
+        return value;
     }
 
     @Override

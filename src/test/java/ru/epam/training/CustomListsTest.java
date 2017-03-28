@@ -117,9 +117,10 @@ public class CustomListsTest {
     public void testThatWeCanDeleteElementByIndex() throws Exception {
         fillList();
 
-        list.remove(2);
+        String removed = list.remove(2);
 
         assertFalse(list.contains("aa2a"));
+        assertThat(removed, is(equalTo("aa2a")));
     }
 
     @Test

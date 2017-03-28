@@ -128,8 +128,9 @@ public class CustomLinkedList<T> implements List<T> {
     public T remove(int index) {
         Node<T> current = getNodeByIndex(index - 1);
         size--;
+        T value = current.next.value;
         current.next = current.next.next;
-        return null;
+        return value;
     }
 
     @Override
