@@ -64,6 +64,16 @@ public class CustomLinkedList<T> implements List<T> {
 
     @Override
     public boolean remove(Object o) {
+        Node<T> current = head.next;
+        Node<T> prev = head;
+        while (current != null){
+            if(o.equals(current.value)){
+                prev.next = current.next;
+                return true;
+            }
+            prev = current;
+            current = current.next;
+        }
         return false;
     }
 

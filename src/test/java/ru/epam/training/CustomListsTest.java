@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -100,5 +101,20 @@ public class CustomListsTest {
         list.add("aad");
 
         list.get(list.size());
+    }
+
+    @Test
+    public void testThatWeCanRemoveExistedElementFromList() throws Exception {
+        String value = "ssss";
+        list.add("aa0a");
+        list.add("aa1a");
+        list.add(value);
+        list.add("aa2a");
+        list.add("aa3a");
+        list.add("aa4a");
+
+        list.remove(value);
+
+        assertFalse("contains",list.contains(value));
     }
 }

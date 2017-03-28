@@ -58,6 +58,13 @@ public class CustomArrayList<T> implements List<T> {
 
     @Override
     public boolean remove(Object o) {
+        for (int i = 0; i < size; i++) {
+            if (o.equals(data[i])) {
+                int length = data.length - i;
+                System.arraycopy(data, i + 1, data, i, length-1);
+                return true;
+            }
+        }
         return false;
     }
 
