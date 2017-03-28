@@ -4,7 +4,9 @@ import java.util.*;
 
 public class CustomArrayList<T> implements List<T> {
 
-    private Object[] data = new Object[10];
+    public static final int CAPACITY = 10;
+
+    private Object[] data = new Object[CAPACITY];
     private int size = 0;
 
     @Override
@@ -95,7 +97,8 @@ public class CustomArrayList<T> implements List<T> {
 
     @Override
     public void clear() {
-
+        data = new Object[CAPACITY];
+        size = 0;
     }
 
     @Override

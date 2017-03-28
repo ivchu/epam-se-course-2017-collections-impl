@@ -1,10 +1,10 @@
 package ru.epam.training;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -30,6 +30,11 @@ public class CustomListsTest {
                 new CustomArrayList(),
                 new CustomLinkedList()
         });
+    }
+
+    @Before
+    public void init() {
+        list.clear();
     }
 
     @Test
@@ -86,35 +91,40 @@ public class CustomListsTest {
     @Test
     public void testThatWeCanGetElementByIndex() {
 
-        list.add("aaa");
-        list.add("aa2");
-        list.add("aad");
+        fillList();
 
-        assertThat(list.get(1), is(equalTo("aa2")));
+        assertThat(list.get(1), is(equalTo("aa1a")));
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void testThatWeCantGetElementByIndexMoreThenSize() throws Exception {
 
-        list.add("aaa");
-        list.add("aa2");
-        list.add("aad");
+        fillList();
 
         list.get(list.size());
     }
 
     @Test
     public void testThatWeCanRemoveExistedElementFromList() throws Exception {
-        String value = "ssss";
+        fillList();
+
+        list.remove("ssss");
+
+        assertFalse("contains", list.contains("ssss"));
+    }
+
+    @Test
+    public void testThatWeCanDeleteElementByIndex() throws Exception {
+        fillList();
+
+    }
+
+    private void fillList() {
         list.add("aa0a");
         list.add("aa1a");
-        list.add(value);
         list.add("aa2a");
+        list.add("ssss");
         list.add("aa3a");
         list.add("aa4a");
-
-        list.remove(value);
-
-        assertFalse("contains",list.contains(value));
     }
 }
