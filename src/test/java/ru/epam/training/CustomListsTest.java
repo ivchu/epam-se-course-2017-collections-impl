@@ -91,4 +91,14 @@ public class CustomListsTest {
 
         assertThat(list.get(1), is(equalTo("aa2")));
     }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testThatWeCantGetElementByIndexMoreThenSize() throws Exception {
+
+        list.add("aaa");
+        list.add("aa2");
+        list.add("aad");
+
+        list.get(list.size());
+    }
 }
