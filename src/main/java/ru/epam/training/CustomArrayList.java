@@ -17,11 +17,16 @@ public class CustomArrayList<T> implements List<T> {
 
     @Override
     public boolean isEmpty() {
-        return  size == 0;
+        return size == 0;
     }
 
     @Override
     public boolean contains(Object o) {
+        for (int i = 0; i < size; i++) {
+            if (data[i].equals(o)) {
+                return true;
+            }
+        }
         return false;
     }
 

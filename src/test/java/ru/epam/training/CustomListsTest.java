@@ -40,4 +40,13 @@ public class CustomListsTest {
         assertThat(list.isEmpty(), is(false));
     }
 
+    @Test
+    public void testThatListContainsElementThatWeAddedBefore() {
+        String value = "bbb";
+
+        list.add(value);
+
+        assertTrue(list.contains(value));
+    }
+
 }
