@@ -134,6 +134,13 @@ public class CustomListsTest {
         assertThat(list.size(), is(equalTo(prevSize - 1)));
     }
 
+    @Test
+    public void testThatWeCantDeleteNonExistentElement() throws Exception {
+        fillList();
+
+        assertFalse(list.remove("sadasdasd"));
+    }
+
     private void fillList() {
         list.add("aa0a");
         list.add("aa1a");
