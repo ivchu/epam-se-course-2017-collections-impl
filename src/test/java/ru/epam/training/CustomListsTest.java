@@ -57,7 +57,7 @@ public class CustomListsTest {
     }
 
     @Test
-    public void testThatListContainsNullIfItWasAdded()  {
+    public void testThatListContainsNullIfItWasAdded() {
 
         list.add(null);
 
@@ -65,8 +65,19 @@ public class CustomListsTest {
     }
 
     @Test
-    public void testThatListNotContainsNullIfItWasNotAdded()  {
+    public void testThatListNotContainsNullIfItWasNotAdded() {
         list.add("fff");
         assertFalse(list.contains(null));
+    }
+
+    @Test
+    public void testThatListsSizeIsDynamic() throws Exception {
+        int size = 50;
+
+        for (int i = 0; i < size; i++) {
+            list.add(String.valueOf(i));
+        }
+
+        assertThat(list.size(), is(size));
     }
 }

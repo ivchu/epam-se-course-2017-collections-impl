@@ -8,10 +8,11 @@ import java.util.ListIterator;
 public class CustomLinkedList<T> implements List<T> {
 
     private Node<T> head = new Node<>(null);
+    private int size = 0;
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
@@ -57,6 +58,7 @@ public class CustomLinkedList<T> implements List<T> {
             iterator = iterator.next;
         }
         iterator.next = new Node<>(t);
+        size++;
         return false;
     }
 

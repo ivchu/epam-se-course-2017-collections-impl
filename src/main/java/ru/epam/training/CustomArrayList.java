@@ -1,9 +1,6 @@
 package ru.epam.training;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 public class CustomArrayList<T> implements List<T> {
 
@@ -12,7 +9,7 @@ public class CustomArrayList<T> implements List<T> {
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
@@ -51,6 +48,10 @@ public class CustomArrayList<T> implements List<T> {
 
     @Override
     public boolean add(T t) {
+        if (size == data.length) {
+            int newLength = (data.length * 3) / 2 + 1;
+            data = Arrays.copyOf(data, newLength);
+        }
         data[size++] = t;
         return false;
     }
