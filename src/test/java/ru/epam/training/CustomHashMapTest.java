@@ -64,6 +64,12 @@ public class CustomHashMapTest {
 
     @Test
     public void testThatMapCanContainsKeysWithSameHashCode() {
+        String value1 = "ss1";
+        String value2 = "ss2";
+        m.put(1, value1);
+        m.put(17, value2);
+        m.containsKey(1);
+        m.containsKey(17);
     }
 
     @Test(expected = NullPointerException.class)

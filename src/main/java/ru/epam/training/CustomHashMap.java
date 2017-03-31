@@ -10,7 +10,6 @@ public class CustomHashMap<K, V> implements Map<K, V> {
 
     private int size = 0;
 
-
     @Override
     public int size() {
         return size;
@@ -23,9 +22,19 @@ public class CustomHashMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean containsKey(Object key) {
-        CustomEntry<K, V> bucket = buckets[0];
-        if (bucket != null) {
-            return bucket.key.equals(key);
+        int bucketNumber = hash(key);
+        CustomEntry<K, V> customEntry = buckets[bucketNumber];
+        if (customEntry == null) {
+            return false;
+        } else if (customEntry.key.equals(key)) {
+            return true;
+        } else {
+            while (customEntry.hasNext()) {
+                if (customEntry.key.equals(key)) {
+                    return true;
+                }
+                customEntry = customEntry.next;
+            }
         }
         return false;
     }
@@ -51,7 +60,12 @@ public class CustomHashMap<K, V> implements Map<K, V> {
             V oldValue = buckets[bucketNumber].setValue(value);
             return oldValue;
         } else {
-            throw new NullPointerException();
+            CustomEntry<K, V> currentEntry = buckets[bucketNumber];
+            while (currentEntry.hasNext()){
+                currentEntry = currentEntry.next;
+            }
+            currentEntry.next = new CustomEntry<>(key, value);
+            return null;
         }
     }
 
