@@ -43,8 +43,16 @@ public class CustomHashMap<K, V> implements Map<K, V> {
 
     @Override
     public V put(K key, V value) {
-        buckets[hash(key)] = new CustomEntry<>(key, value);
-        return null; //TODO implement return prev value
+        int bucketNumber = hash(key);
+        if (buckets[bucketNumber] == null) {
+            buckets[bucketNumber] = new CustomEntry<>(key, value);
+            return null;
+        } else if (key.equals(buckets[bucketNumber].key)) {
+            V oldValue = buckets[bucketNumber].setValue(value);
+            return oldValue;
+        } else {
+            throw new NullPointerException();
+        }
     }
 
     @Override
@@ -77,7 +85,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
         return null;
     }
 
-    private int hash(Object key){
+    private int hash(Object key) {
         return key == null ? 0 : Math.abs(Objects.hashCode(key) % buckets.length);
     }
 

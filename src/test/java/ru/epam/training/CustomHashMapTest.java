@@ -57,9 +57,9 @@ public class CustomHashMapTest {
     }
     @Test
     public void testThatMapCanPutPairWithKeyThatAlreadyPresentedAndGetPreviousValue() {
-        String value;
-        m.put(1, "ss1");
-        m.put(1, "ss2");
+        String value = "ss1";
+        m.put(1, value);
+        assertEquals(m.put(1, "ss2"), value);
     }
 
     @Test
