@@ -51,11 +51,12 @@ public class CustomHashMapTest {
 
 
     @Test
-    public void testThatWECanGetValueByKey(){
+    public void testThatWECanGetValueByKey() {
         String value = "value";
         m.put(1, value);
         assertEquals(value, m.get(1));
     }
+
     @Test
     public void testThatMapCanPutPairWithKeyThatAlreadyPresentedAndGetPreviousValue() {
         String value = "ss1";
@@ -97,6 +98,12 @@ public class CustomHashMapTest {
 
     @Test
     public void testContainsValueMethodWorksProperlyOnNullInputValue() {
+        String value1 = null;
+        String value2 = "ss2";
+        m.put(1, value1);
+        m.put(17, value2);
+        assertTrue(m.containsValue(value1));
+        assertTrue(m.containsValue(value2));
     }
 
     @Test(expected = ClassCastException.class)

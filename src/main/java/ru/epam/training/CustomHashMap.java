@@ -44,13 +44,27 @@ public class CustomHashMap<K, V> implements Map<K, V> {
         for (CustomEntry<K, V> currentEntry : buckets) {
             if (currentEntry != null) {
                 while (currentEntry.hasNext()) {
+                    if (currentEntry.value == null) {
+                        if (value == null) {
+                            return true;
+                        } else {
+                            currentEntry = currentEntry.next;
+                        }
+                    } else {
+                        if (currentEntry.value.equals(value)) {
+                            return true;
+                        }
+                        currentEntry = currentEntry.next;
+                    }
+                }
+                if (currentEntry.value == null) {
+                    if (value == null) {
+                        return true;
+                    }
+                } else {
                     if (currentEntry.value.equals(value)) {
                         return true;
                     }
-                    currentEntry = currentEntry.next;
-                }
-                if (currentEntry.value.equals(value)){
-                    return true;
                 }
             }
         }
