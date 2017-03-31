@@ -9,6 +9,7 @@ import java.util.Map;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsNull.notNullValue;
+import static org.junit.Assert.assertEquals;
 
 @FixMethodOrder
 public class CustomHashMapTest {
@@ -50,14 +51,21 @@ public class CustomHashMapTest {
 
     @Test
     public void testThatWeCanPutNullValue() {
+        m.put(5, null);
     }
 
-    @Test(expected = OutOfMemoryError.class)
-    public void testThatMapHaveInfiniteCapacity() {
-    }
 
     @Test
+    public void testThatWECanGetValueByKey(){
+        String value = "value";
+        m.put(1, value);
+        assertEquals(value, m.get(1));
+    }
+    @Test
     public void testThatMapCanPutPairWithKeyThatAlreadyPresented() {
+        String value;
+        m.put(1, "ss1");
+        m.put(1, "ss2");
     }
 
     @Test
