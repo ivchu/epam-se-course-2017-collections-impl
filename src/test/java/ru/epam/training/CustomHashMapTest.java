@@ -56,7 +56,7 @@ public class CustomHashMapTest {
         assertEquals(value, m.get(1));
     }
     @Test
-    public void testThatMapCanPutPairWithKeyThatAlreadyPresented() {
+    public void testThatMapCanPutPairWithKeyThatAlreadyPresentedAndGetPreviousValue() {
         String value;
         m.put(1, "ss1");
         m.put(1, "ss2");

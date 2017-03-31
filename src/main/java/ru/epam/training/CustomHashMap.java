@@ -37,12 +37,13 @@ public class CustomHashMap<K, V> implements Map<K, V> {
 
     @Override
     public V get(Object key) {
-        return null;
+        int bucketNumber = hash(key);
+        return buckets[bucketNumber].value;
     }
 
     @Override
     public V put(K key, V value) {
-        buckets[0] = new CustomEntry<>(key, value);
+        buckets[hash(key)] = new CustomEntry<>(key, value);
         return null; //TODO implement return prev value
     }
 
@@ -76,7 +77,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
         return null;
     }
 
-    private int hash(K key){
+    private int hash(Object key){
         return key == null ? 0 : Math.abs(Objects.hashCode(key) % buckets.length);
     }
 
