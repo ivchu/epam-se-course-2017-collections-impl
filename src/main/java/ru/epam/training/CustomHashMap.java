@@ -10,9 +10,6 @@ public class CustomHashMap<K, V> implements Map<K, V> {
 
     private int size = 0;
 
-    private int hash(K key){
-        return key == null ? 0 : Math.abs(Objects.hashCode(key) % buckets.length);
-    }
 
     @Override
     public int size() {
@@ -45,7 +42,6 @@ public class CustomHashMap<K, V> implements Map<K, V> {
 
     @Override
     public V put(K key, V value) {
-        Objects.requireNonNull(key);
         buckets[0] = new CustomEntry<>(key, value);
         return null; //TODO implement return prev value
     }
@@ -78,6 +74,10 @@ public class CustomHashMap<K, V> implements Map<K, V> {
     @Override
     public Set<Entry<K, V>> entrySet() {
         return null;
+    }
+
+    private int hash(K key){
+        return key == null ? 0 : Math.abs(Objects.hashCode(key) % buckets.length);
     }
 
 

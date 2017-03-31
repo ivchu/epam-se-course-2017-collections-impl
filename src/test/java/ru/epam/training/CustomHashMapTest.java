@@ -13,7 +13,6 @@ import static org.junit.Assert.assertEquals;
 
 @FixMethodOrder
 public class CustomHashMapTest {
-
     private Map<Integer, String> m;
 
     @Before
@@ -42,11 +41,6 @@ public class CustomHashMapTest {
     public void testThatWeCanPutKeyValuePairAndCanCheckIt() {
         m.put(new Integer(3), "abc");
         assertThat(m.containsKey(3), is(true));
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testThatWeCantPutNullKey() {
-        m.put(null, "abc");
     }
 
     @Test
