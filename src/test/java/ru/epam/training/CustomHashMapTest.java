@@ -10,6 +10,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @FixMethodOrder
 public class CustomHashMapTest {
@@ -72,17 +73,27 @@ public class CustomHashMapTest {
         m.containsKey(17);
     }
 
-    @Test(expected = NullPointerException.class)
-    public void testThatContainsKeyMethodThrowsExceptionOnNullKey() {
-    }
 
-    @Test(expected = ClassCastException.class)
-    public void testThatContainsKeyMethodThrowsExceptionOnWrongKeyClass() {
+    @Test
+    public void testContainsValueMethodWorksProperlyForKeysWithDiffHash() {
+        String value1 = "ss1";
+        String value2 = "ss2";
+        m.put(1, value1);
+        m.put(2, value2);
+        assertTrue(m.containsValue(value1));
+        assertTrue(m.containsValue(value2));
     }
 
     @Test
-    public void testContainsValueMethodWorksProperlyOn() {
+    public void testContainsValueMethodWorksProperlyForKeysWithSameHash() {
+        String value1 = "ss1";
+        String value2 = "ss2";
+        m.put(1, value1);
+        m.put(17, value2);
+        assertTrue(m.containsValue(value1));
+        assertTrue(m.containsValue(value2));
     }
+
 
     @Test
     public void testContainsValueMethodWorksProperlyOnNullInputValue() {

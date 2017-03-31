@@ -41,6 +41,19 @@ public class CustomHashMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean containsValue(Object value) {
+        for (CustomEntry<K, V> currentEntry : buckets) {
+            if (currentEntry != null) {
+                while (currentEntry.hasNext()) {
+                    if (currentEntry.value.equals(value)) {
+                        return true;
+                    }
+                    currentEntry = currentEntry.next;
+                }
+                if (currentEntry.value.equals(value)){
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -61,7 +74,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
             return oldValue;
         } else {
             CustomEntry<K, V> currentEntry = buckets[bucketNumber];
-            while (currentEntry.hasNext()){
+            while (currentEntry.hasNext()) {
                 currentEntry = currentEntry.next;
             }
             currentEntry.next = new CustomEntry<>(key, value);
