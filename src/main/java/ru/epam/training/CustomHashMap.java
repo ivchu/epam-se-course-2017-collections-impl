@@ -68,26 +68,17 @@ public class CustomHashMap<K, V> implements Map<K, V> {
 
     @Override
     public V put(K key, V value) {
+        CustomEntry<K, V> currentEntry = getEntry(key);
         int bucketNumber = hash(key);
-        if (buckets[bucketNumber] == null) {
-            buckets[bucketNumber] = new CustomEntry<>(key, value);
-            size++;
-            return null;
-        } else {
-            CustomEntry<K, V> currentEntry = buckets[bucketNumber];
-            while (currentEntry != null) {
-                if (key.equals(currentEntry.key)) {
-                    V oldValue = currentEntry.setValue(value);
-                    return oldValue;
-                } else {
-                    currentEntry = currentEntry.next;
-                }
-            }
+        if (currentEntry == null) {
             CustomEntry<K, V> newEntry = new CustomEntry<>(key, value);
             newEntry.next = buckets[bucketNumber];
             buckets[bucketNumber] = newEntry;
             size++;
             return null;
+        } else {
+            V oldValue = currentEntry.setValue(value);
+            return oldValue;
         }
     }
 
