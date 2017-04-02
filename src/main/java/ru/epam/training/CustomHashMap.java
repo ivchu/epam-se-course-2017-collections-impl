@@ -22,21 +22,8 @@ public class CustomHashMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean containsKey(Object key) {
-        int bucketNumber = hash(key);
-        CustomEntry<K, V> customEntry = buckets[bucketNumber];
-        if (customEntry == null) {
-            return false;
-        } else if (customEntry.key.equals(key)) {
-            return true;
-        } else {
-            while (customEntry.hasNext()) {
-                if (customEntry.key.equals(key)) {
-                    return true;
-                }
-                customEntry = customEntry.next;
-            }
-        }
-        return false;
+        CustomEntry<K, V> customEntry = getEntry(key);
+        return (customEntry == null) ? false : true;
     }
 
     @Override
@@ -147,11 +134,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
         public CustomEntry<K, V> next() {
             return this.next;
         }
-
-        void setNext(CustomEntry<K, V> next) {
-            this.next = next;
-        }
-
+        
         V setValue(V value) {
             V oldValue = this.value;
             this.value = value;
