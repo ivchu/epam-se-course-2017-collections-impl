@@ -10,6 +10,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @FixMethodOrder
@@ -144,5 +145,31 @@ public class CustomHashMapTest {
         assertEquals(value1, m.get(1));
         assertEquals(value2, m.get(17));
         assertEquals(value3, m.get(33));
+    }
+
+
+    @Test
+    public void testThatRemoveMethodNotDeletingWholeLLFromBucket() {
+        String value1 = "ss1";
+        String value2 = "ss17";
+        String value3 = "ss33";
+        m.put(1, value1);
+        m.put(17, value2);
+        m.put(33, value3);
+        m.remove(33);
+        assertTrue(m.containsKey(1));
+        assertTrue(m.containsKey(17));
+        assertTrue(m.containsValue(value1));
+        assertTrue(m.containsValue(value2));
+        assertFalse(m.containsKey(33));
+        assertTrue(m.containsValue(value3));
+
+    }
+
+    @Test
+    public void testThatRemoveMethodReturnsPreviousValue() {
+        String value1 = "ss1";
+        m.remove(1, value1);
+        assertEquals(value1, m.remove(1));
     }
 }

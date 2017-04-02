@@ -134,7 +134,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
         public CustomEntry<K, V> next() {
             return this.next;
         }
-        
+
         V setValue(V value) {
             V oldValue = this.value;
             this.value = value;
