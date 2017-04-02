@@ -58,6 +58,13 @@ public class CustomHashMapTest {
     }
 
     @Test
+    public void testThatWeCanGetNullKeyElement() {
+        String value = null;
+        m.put(1, value);
+        assertEquals(value, m.get(1));
+    }
+
+    @Test
     public void testThatMapCanPutPairWithKeyThatAlreadyPresentedAndGetPreviousValue() {
         String value = "ss1";
         m.put(1, value);
@@ -117,7 +124,7 @@ public class CustomHashMapTest {
     }
 
     @Test
-    public void testThatForMultipleKeysWithTheSameHashIfWePutNewValuewithOldKeyOnlyValueWillBeChanged() {
+    public void testThatForMultipleKeysWithTheSameHashIfWePutNewValueWithOldKeyOnlyValueWillBeChanged() {
         int expectedSize = 3;
         m.put(1, "ss1");
         m.put(17, "ss17");
@@ -125,5 +132,18 @@ public class CustomHashMapTest {
         m.put(17, "ss172");
         System.out.println(m.size());
         assertTrue(m.size() == expectedSize);
+    }
+
+    @Test
+    public void testThatWeCanGetCorrectElementWithKeyWhichHashHaveMultipleElementsInBucket() {
+        String value1 = "ss1";
+        String value2 = "ss17";
+        String value3 = "ss33";
+        m.put(1, value1);
+        m.put(17, value2);
+        m.put(33, value3);
+        assertEquals(value1, m.get(1));
+        assertEquals(value2, m.get(17));
+        assertEquals(value3, m.get(33));
     }
 }

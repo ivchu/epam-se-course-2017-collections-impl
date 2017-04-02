@@ -63,7 +63,15 @@ public class CustomHashMap<K, V> implements Map<K, V> {
     @Override
     public V get(Object key) {
         int bucketNumber = hash(key);
-        return buckets[bucketNumber].value;
+        CustomEntry<K, V> currentEntry = buckets[bucketNumber];
+        while (currentEntry != null) {
+            if (key.equals(currentEntry.key)) {
+                return currentEntry.value;
+            } else {
+                currentEntry = currentEntry.next;
+            }
+        }
+        return null;
     }
 
     @Override
