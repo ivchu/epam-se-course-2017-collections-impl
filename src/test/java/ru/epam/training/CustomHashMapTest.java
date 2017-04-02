@@ -61,7 +61,7 @@ public class CustomHashMapTest {
     public void testThatMapCanPutPairWithKeyThatAlreadyPresentedAndGetPreviousValue() {
         String value = "ss1";
         m.put(1, value);
-        assertEquals(m.put(1, "ss2"), value);
+        assertEquals(value, m.put(1, "ss2"));
     }
 
     @Test
@@ -118,9 +118,12 @@ public class CustomHashMapTest {
 
     @Test
     public void testThatForMultipleKeysWithTheSameHashIfWePutNewValuewithOldKeyOnlyValueWillBeChanged() {
+        int expectedSize = 3;
         m.put(1, "ss1");
         m.put(17, "ss17");
         m.put(33, "ss33");
-        m.put(17, "ss33");
+        m.put(17, "ss172");
+        System.out.println(m.size());
+        assertTrue(m.size() == expectedSize);
     }
 }

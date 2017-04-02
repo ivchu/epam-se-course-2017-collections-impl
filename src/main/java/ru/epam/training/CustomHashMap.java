@@ -84,15 +84,19 @@ public class CustomHashMap<K, V> implements Map<K, V> {
             buckets[bucketNumber] = new CustomEntry<>(key, value);
             size++;
             return null;
-        } else if (key.equals(buckets[bucketNumber].key)) {
-            V oldValue = buckets[bucketNumber].setValue(value);
-            return oldValue;
         } else {
             CustomEntry<K, V> currentEntry = buckets[bucketNumber];
-            while (currentEntry.hasNext()) {
-                currentEntry = currentEntry.next;
+            while (currentEntry != null) {
+                if (key.equals(currentEntry.key)) {
+                    V oldValue = currentEntry.setValue(value);
+                    return oldValue;
+                }else {
+                    currentEntry = currentEntry.next;
+                }
             }
-            currentEntry.next = new CustomEntry<>(key, value);
+            CustomEntry<K, V> newEntry = new CustomEntry<>(key, value);
+            newEntry.next = buckets[bucketNumber];
+            buckets[bucketNumber] = newEntry;
             size++;
             return null;
         }
