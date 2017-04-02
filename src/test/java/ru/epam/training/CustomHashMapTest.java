@@ -169,7 +169,12 @@ public class CustomHashMapTest {
     @Test
     public void testThatRemoveMethodReturnsPreviousValue() {
         String value1 = "ss1";
-        m.remove(1, value1);
+        m.put(1, value1);
         assertEquals(value1, m.remove(1));
+    }
+
+    @Test
+    public void testThatRemoveMethodReturnsNullIfNoSuchKeyInMap() {
+        assertEquals(null, m.remove(1));
     }
 }
