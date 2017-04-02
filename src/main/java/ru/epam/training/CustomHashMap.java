@@ -42,29 +42,18 @@ public class CustomHashMap<K, V> implements Map<K, V> {
     @Override
     public boolean containsValue(Object value) {
         for (CustomEntry<K, V> currentEntry : buckets) {
-            if (currentEntry != null) {
-                while (currentEntry.hasNext()) {
-                    if (currentEntry.value == null) {
-                        if (value == null) {
-                            return true;
-                        } else {
-                            currentEntry = currentEntry.next;
-                        }
-                    } else {
-                        if (currentEntry.value.equals(value)) {
-                            return true;
-                        }
-                        currentEntry = currentEntry.next;
-                    }
-                }
+            while (currentEntry != null) {
                 if (currentEntry.value == null) {
                     if (value == null) {
                         return true;
+                    } else {
+                        currentEntry = currentEntry.next;
                     }
                 } else {
                     if (currentEntry.value.equals(value)) {
                         return true;
                     }
+                    currentEntry = currentEntry.next;
                 }
             }
         }
@@ -90,7 +79,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
                 if (key.equals(currentEntry.key)) {
                     V oldValue = currentEntry.setValue(value);
                     return oldValue;
-                }else {
+                } else {
                     currentEntry = currentEntry.next;
                 }
             }
