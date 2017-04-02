@@ -62,16 +62,8 @@ public class CustomHashMap<K, V> implements Map<K, V> {
 
     @Override
     public V get(Object key) {
-        int bucketNumber = hash(key);
-        CustomEntry<K, V> currentEntry = buckets[bucketNumber];
-        while (currentEntry != null) {
-            if (key.equals(currentEntry.key)) {
-                return currentEntry.value;
-            } else {
-                currentEntry = currentEntry.next;
-            }
-        }
-        return null;
+        CustomEntry<K, V> currentEntry = getEntry(key);
+        return (currentEntry == null) ? null : currentEntry.value;
     }
 
     @Override
@@ -133,6 +125,18 @@ public class CustomHashMap<K, V> implements Map<K, V> {
         return key == null ? 0 : Math.abs(Objects.hashCode(key) % buckets.length);
     }
 
+    private CustomEntry<K, V> getEntry(Object key) {
+        int bucketNumber = hash(key);
+        CustomEntry<K, V> currentEntry = buckets[bucketNumber];
+        while (currentEntry != null) {
+            if (key.equals(currentEntry.key)) {
+                return currentEntry;
+            } else {
+                currentEntry = currentEntry.next;
+            }
+        }
+        return null;
+    }
 
     private class CustomEntry<K, V> implements Iterator<CustomEntry<K, V>> {
 

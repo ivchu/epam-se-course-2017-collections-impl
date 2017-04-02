@@ -130,7 +130,6 @@ public class CustomHashMapTest {
         m.put(17, "ss17");
         m.put(33, "ss33");
         m.put(17, "ss172");
-        System.out.println(m.size());
         assertTrue(m.size() == expectedSize);
     }
 
