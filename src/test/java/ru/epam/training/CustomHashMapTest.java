@@ -106,13 +106,21 @@ public class CustomHashMapTest {
         assertTrue(m.containsValue(value2));
     }
 
-    @Test(expected = ClassCastException.class)
-    public void testValueContainsMethodThrowsExceptionOnWrongInputValueClass() {
+
+    @Test
+    public void testThatMapCalculateItsSizeProperlyForPuttingSomeElements() {
+        int expectedSize = 50;
+        for (int i = 0; i < 50; i++) {
+            m.put(i, "ss" + i);
+        }
+        assertTrue(expectedSize == m.size());
     }
 
     @Test
-    public void testThatMapCalculateItsSizeProperly() {
+    public void testThatForMultipleKeysWithTheSameHashIfWePutNewValuewithOldKeyOnlyValueWillBeChanged() {
+        m.put(1, "ss1");
+        m.put(17, "ss17");
+        m.put(33, "ss33");
+        m.put(17, "ss33");
     }
-
-
 }

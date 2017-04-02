@@ -82,6 +82,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
         int bucketNumber = hash(key);
         if (buckets[bucketNumber] == null) {
             buckets[bucketNumber] = new CustomEntry<>(key, value);
+            size++;
             return null;
         } else if (key.equals(buckets[bucketNumber].key)) {
             V oldValue = buckets[bucketNumber].setValue(value);
@@ -92,6 +93,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
                 currentEntry = currentEntry.next;
             }
             currentEntry.next = new CustomEntry<>(key, value);
+            size++;
             return null;
         }
     }
