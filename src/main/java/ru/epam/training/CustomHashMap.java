@@ -108,7 +108,10 @@ public class CustomHashMap<K, V> implements Map<K, V> {
 
     @Override
     public void clear() {
-
+        for (int i = 0; i < buckets.length; i++){
+            buckets[i] = null;
+        }
+        size = 0;
     }
 
     @Override

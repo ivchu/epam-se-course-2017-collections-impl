@@ -9,9 +9,7 @@ import java.util.Map;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsNull.notNullValue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 @FixMethodOrder
 public class CustomHashMapTest {
@@ -218,5 +216,27 @@ public class CustomHashMapTest {
         assertTrue(expectedSize == m.size());
 
     }
+
+    @Test
+    public void testThatRemoveMethodResetsSizeToZero() {
+        m.put(1, "ss");
+        m.clear();
+        assertEquals(0, m.size());
+    }
+
+    @Test
+    public void testThatAfterRemoveMethodAppliedAllBucketsAreNulls() {
+        int putAmount = 34;
+        int default_capacity = 16;
+        for (int i = 0; i < putAmount; i++) {
+            m.put(i, "ss" + i);
+        }
+        m.clear();
+        for (int i = 0; i < default_capacity; i++) {
+            assertEquals(null, m.get(i));
+        }
+    }
+
+
 
 }
