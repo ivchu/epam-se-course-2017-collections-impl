@@ -203,11 +203,11 @@ public class CustomHashMap<K, V> implements Map<K, V> {
         }
     }
 
-    private class KeyIterator implements Iterator<K> {
+    private abstract class HashMapIterator implements Iterator {
         CustomEntry<K, V>[] entries = new CustomEntry[size];
         int position = 0;
 
-        KeyIterator() {
+        HashMapIterator() {
             for (CustomEntry currentEntry : buckets) {
                 while (currentEntry != null) {
                     entries[position] = currentEntry;
@@ -224,13 +224,30 @@ public class CustomHashMap<K, V> implements Map<K, V> {
         }
 
         @Override
+        public void remove() {
+            CustomHashMap.this.remove(entries[position++].key);
+        }
+    }
+
+
+    private class KeyIterator extends HashMapIterator {
+        @Override
         public K next() {
             return entries[position++].key;
         }
+    }
 
+    private class ValueIterator extends HashMapIterator {
         @Override
-        public void remove() {
-            CustomHashMap.this.remove(entries[position++].key);
+        public V next() {
+            return entries[position++].value;
+        }
+    }
+
+    private class EntryIterator extends HashMapIterator {
+        @Override
+        public CustomEntry<K, V> next() {
+            return entries[position++];
         }
     }
 }
