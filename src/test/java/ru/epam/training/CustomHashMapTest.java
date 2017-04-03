@@ -334,4 +334,59 @@ public class CustomHashMapTest {
         assertEquals(iteratedAmount, valueCollection.size());
     }
 
+    @Test
+    public void testThatEntrySetMethodReturnsAllEntries() {
+        int putAmount = 34;
+        for (int i = 0; i < putAmount; i++) {
+            m.put(i, "ss" + i);
+        }
+        Set<CustomHashMap.Entry> entries = m.entrySet();
+        for (int i = 0; i < putAmount; i++) {
+            assertTrue(setOfKeys.contains(i));
+        }
+    }
+
+    @Test
+    public void testThatEntrySetMethodDontHaveMoreEntriesThenInMap() {
+        int putAmount = 34;
+        for (int i = 0; i < putAmount; i++) {
+            m.put(i, "ss" + i);
+        }
+        Set<Integer> setOfKeys = m.keySet();
+        assertTrue(m.size() == setOfKeys.size());
+    }
+
+    @Test
+    public void testThatEntrySetIteratorWorksWell() {
+        int putAmount = 34;
+        for (int i = 0; i < putAmount; i++) {
+            m.put(i, "ss" + i);
+        }
+        Set<Integer> setOfKeys = m.keySet();
+        Iterator iterator = setOfKeys.iterator();
+        int iteratedAmount = 0;
+        while (iterator.hasNext()) {
+            Object it =  iterator.next();
+            assertTrue(setOfKeys.contains(it));
+            iteratedAmount++;
+        }
+        assertEquals(iteratedAmount, setOfKeys.size());
+    }
+
+    @Test
+    public void testThatEntrySetIteratorCanRemoveEntries() {
+        int putAmount = 34;
+        int removeAmount = putAmount / 2;
+        for (int i = 0; i < putAmount; i++) {
+            m.put(i, "ss" + i);
+        }
+        Set<Integer> setOfKeys = m.keySet();
+        Iterator iterator = setOfKeys.iterator();
+        int leftInSet = putAmount - removeAmount;
+        for (int i = 0; i < removeAmount; i++) {
+            iterator.remove();
+        }
+        assertTrue(leftInSet == m.size());
+    }
+
 }

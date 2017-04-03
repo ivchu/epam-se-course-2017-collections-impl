@@ -126,7 +126,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
 
     @Override
     public Set<Entry<K, V>> entrySet() {
-        return null;
+        return new EntrySet();
     }
 
     private int hash(Object key) {
@@ -146,7 +146,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
         return null;
     }
 
-    private class CustomEntry<K, V> implements Iterator<CustomEntry<K, V>> {
+    private class CustomEntry<K, V> implements Map.Entry<K, V> {
 
         private final K key;
         private V value;
@@ -165,7 +165,17 @@ public class CustomHashMap<K, V> implements Map<K, V> {
             return this.next;
         }
 
-        V setValue(V value) {
+        @Override
+        public K getKey() {
+            return key;
+        }
+
+        @Override
+        public V getValue() {
+            return value;
+        }
+
+        public V setValue(V value) {
             V oldValue = this.value;
             this.value = value;
             return oldValue;
@@ -176,8 +186,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
         }
     }
 
-    private class KeySet extends AbstractSet<K>
-    {
+    private class KeySet extends AbstractSet<K> {
         @Override
         public Iterator<K> iterator() {
             return new KeyIterator();
@@ -214,6 +223,28 @@ public class CustomHashMap<K, V> implements Map<K, V> {
         @Override
         public boolean contains(Object o) {
             return CustomHashMap.this.containsValue(o);
+        }
+    }
+
+    private class EntrySet extends AbstractSet<CustomEntry<K, V>> {
+        @Override
+        public Iterator<CustomEntry<K, V>> iterator() {
+            return null;
+        }
+
+        @Override
+        public int size() {
+            return 0;
+        }
+
+        @Override
+        public boolean contains(Object o) {
+            return CustomHashMap.this.containsKey(o);
+        }
+
+        @Override
+        public boolean remove(Object o) {
+            return CustomHashMap.this.remove(o) != null;
         }
     }
 
@@ -263,4 +294,5 @@ public class CustomHashMap<K, V> implements Map<K, V> {
             return entries[position++];
         }
     }
+
 }
