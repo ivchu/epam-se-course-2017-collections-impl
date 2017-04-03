@@ -116,7 +116,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
 
     @Override
     public Set<K> keySet() {
-        return null;
+        return new KeySet();
     }
 
     @Override
@@ -173,6 +173,33 @@ public class CustomHashMap<K, V> implements Map<K, V> {
 
         public int hashCode() {
             return Objects.hashCode(key) + Objects.hashCode(value);
+        }
+    }
+
+    private class KeySet extends AbstractSet<K> {
+        @Override
+        public Iterator<K> iterator() {
+            return null;
+        }
+
+        @Override
+        public int size() {
+            return CustomHashMap.this.size();
+        }
+
+        @Override
+        public boolean contains(Object o) {
+            return CustomHashMap.this.containsKey(o);
+        }
+
+        @Override
+        public boolean remove(Object o) {
+            return CustomHashMap.this.remove(o) != null;
+        }
+
+        @Override
+        public void clear() {
+            CustomHashMap.this.clear();
         }
     }
 }

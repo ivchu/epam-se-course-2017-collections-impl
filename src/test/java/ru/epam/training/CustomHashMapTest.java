@@ -5,6 +5,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 
 import java.util.Map;
+import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -237,6 +238,27 @@ public class CustomHashMapTest {
         }
     }
 
+    @Test
+    public void testThatKeySetMethodReturnsAllKeys(){
+        int putAmount = 34;
+        for (int i = 0; i < putAmount; i++) {
+            m.put(i, "ss" + i);
+        }
+        Set<Integer> setOfKeys = m.keySet();
+        for (int i = 0; i < putAmount; i++) {
+            assertTrue(setOfKeys.contains(i));
+        }
+    }
+
+    @Test
+    public void testThatKeySetMethodDontHaveMoreKeysThenInMap(){
+        int putAmount = 34;
+        for (int i = 0; i < putAmount; i++) {
+            m.put(i, "ss" + i);
+        }
+        Set<Integer> setOfKeys = m.keySet();
+        assertTrue(m.size() == setOfKeys.size());
+    }
 
 
 }
