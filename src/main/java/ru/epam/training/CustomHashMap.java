@@ -226,25 +226,31 @@ public class CustomHashMap<K, V> implements Map<K, V> {
         }
     }
 
-    private class EntrySet extends AbstractSet<CustomEntry<K, V>> {
+    private class EntrySet extends AbstractSet<Entry<K, V>> {
         @Override
-        public Iterator<CustomEntry<K, V>> iterator() {
-            return null;
+        public Iterator<Entry<K, V>> iterator() {
+            return new EntryIterator();
         }
 
         @Override
         public int size() {
-            return 0;
+            return CustomHashMap.this.size();
         }
 
         @Override
         public boolean contains(Object o) {
-            return CustomHashMap.this.containsKey(o);
+            if (o instanceof Map.Entry) {
+                return CustomHashMap.this.containsKey(((Entry)o).getKey());
+            }
+            return false;
         }
 
         @Override
         public boolean remove(Object o) {
-            return CustomHashMap.this.remove(o) != null;
+            if (o instanceof Map.Entry){
+                return CustomHashMap.this.remove(((Entry)o).getKey()) != null;
+            }
+            return false;
         }
     }
 

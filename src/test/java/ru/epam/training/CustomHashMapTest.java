@@ -4,10 +4,7 @@ import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -272,7 +269,7 @@ public class CustomHashMapTest {
         Iterator iterator = setOfKeys.iterator();
         int iteratedAmount = 0;
         while (iterator.hasNext()) {
-            Object it =  iterator.next();
+            Object it = iterator.next();
             assertTrue(setOfKeys.contains(it));
             iteratedAmount++;
         }
@@ -336,13 +333,15 @@ public class CustomHashMapTest {
 
     @Test
     public void testThatEntrySetMethodReturnsAllEntries() {
+        HashMap<Integer, String> testingMap = new HashMap<>();
         int putAmount = 34;
         for (int i = 0; i < putAmount; i++) {
             m.put(i, "ss" + i);
+            testingMap.put(i, "ss" + i);
         }
-        Set<CustomHashMap.Entry> entries = m.entrySet();
-        for (int i = 0; i < putAmount; i++) {
-            assertTrue(setOfKeys.contains(i));
+        Set<Map.Entry<Integer, String>> entries = m.entrySet();
+        for (Map.Entry<Integer, String> mustBeIn : testingMap.entrySet()) {
+            assertTrue(entries.contains(mustBeIn));
         }
     }
 
@@ -352,8 +351,8 @@ public class CustomHashMapTest {
         for (int i = 0; i < putAmount; i++) {
             m.put(i, "ss" + i);
         }
-        Set<Integer> setOfKeys = m.keySet();
-        assertTrue(m.size() == setOfKeys.size());
+        Set<Map.Entry<Integer, String>> entries = m.entrySet();
+        assertTrue(m.size() == entries.size());
     }
 
     @Test
@@ -362,15 +361,15 @@ public class CustomHashMapTest {
         for (int i = 0; i < putAmount; i++) {
             m.put(i, "ss" + i);
         }
-        Set<Integer> setOfKeys = m.keySet();
-        Iterator iterator = setOfKeys.iterator();
+        Set<Map.Entry<Integer, String>> entries = m.entrySet();
+        Iterator iterator = entries.iterator();
         int iteratedAmount = 0;
         while (iterator.hasNext()) {
-            Object it =  iterator.next();
-            assertTrue(setOfKeys.contains(it));
+            Object it = iterator.next();
+            assertTrue(entries.contains(it));
             iteratedAmount++;
         }
-        assertEquals(iteratedAmount, setOfKeys.size());
+        assertEquals(iteratedAmount, entries.size());
     }
 
     @Test
@@ -380,8 +379,8 @@ public class CustomHashMapTest {
         for (int i = 0; i < putAmount; i++) {
             m.put(i, "ss" + i);
         }
-        Set<Integer> setOfKeys = m.keySet();
-        Iterator iterator = setOfKeys.iterator();
+        Set<Map.Entry<Integer, String>> entries = m.entrySet();
+        Iterator iterator = entries.iterator();
         int leftInSet = putAmount - removeAmount;
         for (int i = 0; i < removeAmount; i++) {
             iterator.remove();
