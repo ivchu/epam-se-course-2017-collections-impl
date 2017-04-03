@@ -75,8 +75,8 @@ public class CustomHashMap<K, V> implements Map<K, V> {
         CustomEntry<K, V> previousEntry = null;
         CustomEntry<K, V> currentEntry = buckets[bucketNumber];
         while (currentEntry != null) {
-            if (currentEntry.key == null){
-                if (key == null){
+            if (currentEntry.key == null) {
+                if (key == null) {
                     V oldValue = currentEntry.value;
                     buckets[bucketNumber] = null;
                     size--;
@@ -108,7 +108,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
 
     @Override
     public void clear() {
-        for (int i = 0; i < buckets.length; i++){
+        for (int i = 0; i < buckets.length; i++) {
             buckets[i] = null;
         }
         size = 0;
@@ -179,7 +179,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
     private class KeySet extends AbstractSet<K> {
         @Override
         public Iterator<K> iterator() {
-            return null;
+            return new KeyIterator();
         }
 
         @Override
@@ -200,6 +200,37 @@ public class CustomHashMap<K, V> implements Map<K, V> {
         @Override
         public void clear() {
             CustomHashMap.this.clear();
+        }
+    }
+
+    private class KeyIterator implements Iterator<K> {
+        CustomEntry<K, V>[] entries = new CustomEntry[size];
+        int position = 0;
+
+        KeyIterator() {
+            for (CustomEntry currentEntry : buckets) {
+                while (currentEntry != null) {
+                    entries[position] = currentEntry;
+                    position++;
+                    currentEntry = currentEntry.next;
+                }
+            }
+            position = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return position < entries.length - 1;
+        }
+
+        @Override
+        public K next() {
+            return entries[++position].key;
+        }
+
+        @Override
+        public void remove() {
+            CustomHashMap.this.remove(entries[position].key);
         }
     }
 }
