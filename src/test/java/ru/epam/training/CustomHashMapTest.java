@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -268,11 +269,10 @@ public class CustomHashMapTest {
             m.put(i, "ss" + i);
         }
         Set<Integer> setOfKeys = m.keySet();
-        Iterator<Integer> iterator = setOfKeys.iterator();
+        Iterator iterator = setOfKeys.iterator();
         int iteratedAmount = 0;
         while (iterator.hasNext()) {
-            Integer it = iterator.next();
-            System.out.println(it);
+            Object it =  iterator.next();
             assertTrue(setOfKeys.contains(it));
             iteratedAmount++;
         }
@@ -287,12 +287,51 @@ public class CustomHashMapTest {
             m.put(i, "ss" + i);
         }
         Set<Integer> setOfKeys = m.keySet();
-        Iterator<Integer> iterator = setOfKeys.iterator();
+        Iterator iterator = setOfKeys.iterator();
         int leftInSet = putAmount - removeAmount;
         for (int i = 0; i < removeAmount; i++) {
             iterator.remove();
         }
         assertTrue(leftInSet == m.size());
-
     }
+
+    @Test
+    public void testThatValuesMethodReturnsAllValues() {
+        int putAmount = 34;
+        for (int i = 0; i < putAmount; i++) {
+            m.put(i, "ss" + i);
+        }
+        Collection<String> valueCollection = m.values();
+        for (int i = 0; i < putAmount; i++) {
+            assertTrue(valueCollection.contains("ss" + i));
+        }
+    }
+
+    @Test
+    public void testThatValuesMethodDontHaveMoreValuesThenInMap() {
+        int putAmount = 100;
+        for (int i = 0; i < putAmount; i++) {
+            m.put(i, "ss" + i);
+        }
+        Collection<String> valueCollection = m.values();
+        assertTrue(m.size() == valueCollection.size());
+    }
+
+    @Test
+    public void testThatValuesIteratorWorksWell() {
+        int putAmount = 34;
+        for (int i = 0; i < putAmount; i++) {
+            m.put(i, "ss" + i);
+        }
+        Collection<String> valueCollection = m.values();
+        Iterator iterator = valueCollection.iterator();
+        int iteratedAmount = 0;
+        while (iterator.hasNext()) {
+            Object it = iterator.next();
+            assertTrue(valueCollection.contains(it));
+            iteratedAmount++;
+        }
+        assertEquals(iteratedAmount, valueCollection.size());
+    }
+
 }

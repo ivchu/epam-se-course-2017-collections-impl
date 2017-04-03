@@ -121,7 +121,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
 
     @Override
     public Collection<V> values() {
-        return null;
+        return new ValueCollection();
     }
 
     @Override
@@ -176,7 +176,8 @@ public class CustomHashMap<K, V> implements Map<K, V> {
         }
     }
 
-    private class KeySet extends AbstractSet<K> {
+    private class KeySet extends AbstractSet<K>
+    {
         @Override
         public Iterator<K> iterator() {
             return new KeyIterator();
@@ -196,10 +197,23 @@ public class CustomHashMap<K, V> implements Map<K, V> {
         public boolean remove(Object o) {
             return CustomHashMap.this.remove(o) != null;
         }
+    }
+
+    private class ValueCollection extends AbstractCollection<V> {
 
         @Override
-        public void clear() {
-            CustomHashMap.this.clear();
+        public Iterator<V> iterator() {
+            return new ValueIterator();
+        }
+
+        @Override
+        public int size() {
+            return CustomHashMap.this.size();
+        }
+
+        @Override
+        public boolean contains(Object o) {
+            return CustomHashMap.this.containsValue(o);
         }
     }
 
@@ -228,7 +242,6 @@ public class CustomHashMap<K, V> implements Map<K, V> {
             CustomHashMap.this.remove(entries[position++].key);
         }
     }
-
 
     private class KeyIterator extends HashMapIterator {
         @Override
