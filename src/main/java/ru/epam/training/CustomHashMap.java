@@ -220,17 +220,17 @@ public class CustomHashMap<K, V> implements Map<K, V> {
 
         @Override
         public boolean hasNext() {
-            return position < entries.length - 1;
+            return position < entries.length;
         }
 
         @Override
         public K next() {
-            return entries[++position].key;
+            return entries[position++].key;
         }
 
         @Override
         public void remove() {
-            CustomHashMap.this.remove(entries[position].key);
+            CustomHashMap.this.remove(entries[position++].key);
         }
     }
 }

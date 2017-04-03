@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -239,7 +240,7 @@ public class CustomHashMapTest {
     }
 
     @Test
-    public void testThatKeySetMethodReturnsAllKeys(){
+    public void testThatKeySetMethodReturnsAllKeys() {
         int putAmount = 34;
         for (int i = 0; i < putAmount; i++) {
             m.put(i, "ss" + i);
@@ -251,7 +252,7 @@ public class CustomHashMapTest {
     }
 
     @Test
-    public void testThatKeySetMethodDontHaveMoreKeysThenInMap(){
+    public void testThatKeySetMethodDontHaveMoreKeysThenInMap() {
         int putAmount = 34;
         for (int i = 0; i < putAmount; i++) {
             m.put(i, "ss" + i);
@@ -260,5 +261,38 @@ public class CustomHashMapTest {
         assertTrue(m.size() == setOfKeys.size());
     }
 
+    @Test
+    public void testThatKeySetIteratorWorksWell() {
+        int putAmount = 34;
+        for (int i = 0; i < putAmount; i++) {
+            m.put(i, "ss" + i);
+        }
+        Set<Integer> setOfKeys = m.keySet();
+        Iterator<Integer> iterator = setOfKeys.iterator();
+        int iteratedAmount = 0;
+        while (iterator.hasNext()) {
+            Integer it = iterator.next();
+            System.out.println(it);
+            assertTrue(setOfKeys.contains(it));
+            iteratedAmount++;
+        }
+        assertEquals(iteratedAmount, setOfKeys.size());
+    }
 
+    @Test
+    public void testThatKeySetIteratorCanRemoveKeys() {
+        int putAmount = 34;
+        int removeAmount = putAmount / 2;
+        for (int i = 0; i < putAmount; i++) {
+            m.put(i, "ss" + i);
+        }
+        Set<Integer> setOfKeys = m.keySet();
+        Iterator<Integer> iterator = setOfKeys.iterator();
+        int leftInSet = putAmount - removeAmount;
+        for (int i = 0; i < removeAmount; i++) {
+            iterator.remove();
+        }
+        assertTrue(leftInSet == m.size());
+
+    }
 }
