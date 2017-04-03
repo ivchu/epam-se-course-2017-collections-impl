@@ -95,10 +95,16 @@ public class CustomHashMapTest {
     public void testContainsValueMethodWorksProperlyForKeysWithSameHash() {
         String value1 = "ss1";
         String value2 = "ss2";
+        String value3 = null;
+        String value4 = "ss4";
         m.put(1, value1);
         m.put(17, value2);
+        m.put(33, value3);
+        m.put(49, value4);
         assertTrue(m.containsValue(value1));
         assertTrue(m.containsValue(value2));
+        assertTrue(m.containsValue(value3));
+        assertTrue(m.containsValue(value4));
     }
 
 
@@ -343,6 +349,24 @@ public class CustomHashMapTest {
         for (Map.Entry<Integer, String> mustBeIn : testingMap.entrySet()) {
             assertTrue(entries.contains(mustBeIn));
         }
+    }
+
+    @Test
+    public void testThatEntrySetMethodContainsReturnsFalseIfNoSuchEntry() {
+        HashMap<Integer, String> testingMap = new HashMap<>();
+        int putAmount = 34;
+        int notInMapEntries = 80;
+        for (int i = 0; i < putAmount; i++) {
+            m.put(i, "ss" + i);
+        }
+        for (int i = putAmount; i < notInMapEntries; i++) {
+            testingMap.put(i, "ss" + i);
+        }
+        Set<Map.Entry<Integer, String>> entries = m.entrySet();
+        for (Map.Entry<Integer, String> mustntBeIn : testingMap.entrySet()) {
+            assertFalse(entries.contains(mustntBeIn));
+        }
+        assertFalse(entries.contains(1));
     }
 
     @Test
