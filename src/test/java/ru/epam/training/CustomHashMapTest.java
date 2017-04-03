@@ -188,4 +188,35 @@ public class CustomHashMapTest {
         m.put(33, value3);
         assertEquals(value2, m.remove(null));
     }
+
+    @Test
+    public void testThatRemoveMethodChangingSizeProperlyRemovingInRightOrder() {
+        int putAmount = 50;
+        int removeAmount = 40;
+        int expectedSize = putAmount - removeAmount;
+        for (int i = 0; i < putAmount; i++) {
+            m.put(i, "ss" + i);
+        }
+        for (int i = 0; i < removeAmount; i++) {
+            m.remove(i);
+        }
+        assertTrue(expectedSize == m.size());
+
+    }
+
+    @Test
+    public void testThatRemoveMethodChangingSizeProperlyRemovingInBackOrder() {
+        int putAmount = 50;
+        int removeAmount = 40;
+        int expectedSize = putAmount - removeAmount;
+        for (int i = 0; i < putAmount; i++) {
+            m.put(i, "ss" + i);
+        }
+        for (int i = removeAmount - 1; i >= 0; i--) {
+            m.remove(i);
+        }
+        assertTrue(expectedSize == m.size());
+
+    }
+
 }
