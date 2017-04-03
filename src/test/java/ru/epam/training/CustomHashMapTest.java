@@ -162,7 +162,7 @@ public class CustomHashMapTest {
         assertTrue(m.containsValue(value1));
         assertTrue(m.containsValue(value2));
         assertFalse(m.containsKey(33));
-        assertTrue(m.containsValue(value3));
+        assertFalse(m.containsValue(value3));
 
     }
 
@@ -176,5 +176,16 @@ public class CustomHashMapTest {
     @Test
     public void testThatRemoveMethodReturnsNullIfNoSuchKeyInMap() {
         assertEquals(null, m.remove(1));
+    }
+
+    @Test
+    public void testThatRemoveMethodWorksWellWithNullKey() {
+        String value1 = "ss1";
+        String value2 = "ss17";
+        String value3 = "ss33";
+        m.put(1, value1);
+        m.put(null, value2);
+        m.put(33, value3);
+        assertEquals(value2, m.remove(null));
     }
 }
