@@ -103,7 +103,9 @@ public class CustomHashMap<K, V> implements Map<K, V> {
 
     @Override
     public void putAll(Map<? extends K, ? extends V> m) {
-
+        for(Map.Entry<? extends K, ? extends V> insertionEntry : m.entrySet()){
+            this.put(insertionEntry.getKey(), insertionEntry.getValue());
+        }
     }
 
     @Override

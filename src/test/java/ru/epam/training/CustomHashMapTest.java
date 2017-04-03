@@ -412,4 +412,18 @@ public class CustomHashMapTest {
         assertTrue(leftInSet == m.size());
     }
 
+    @Test
+    public void testThatPutAllInsertsAllElements() {
+        HashMap<Integer, String> insertMap = new HashMap<>();
+        int putAmount = 204;
+        for (int i = 0; i < putAmount; i++) {
+            insertMap.put(i, "ss" + i);
+        }
+        m.putAll(insertMap);
+        for (Map.Entry mustBeIn : insertMap.entrySet()) {
+            assertTrue(m.containsKey(mustBeIn.getKey()));
+            assertTrue(m.containsValue(mustBeIn.getValue()));
+        }
+        assertEquals(insertMap.size(), m.size());
+    }
 }
