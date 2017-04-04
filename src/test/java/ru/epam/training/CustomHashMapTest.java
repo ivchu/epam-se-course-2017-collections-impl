@@ -426,4 +426,16 @@ public class CustomHashMapTest {
         }
         assertEquals(insertMap.size(), m.size());
     }
+
+    @Test(expected = NullPointerException.class)
+    public  void testThatPutAllMethodThrowsNPEIfInputMapIsNull(){
+        m.putAll(null);
+    }
+
+    @Test
+    public void testThatWeCanUseNullAsKey(){
+        String value = "ss1";
+        m.put(null, value);
+        assertEquals(value, m.get(null));
+    }
 }

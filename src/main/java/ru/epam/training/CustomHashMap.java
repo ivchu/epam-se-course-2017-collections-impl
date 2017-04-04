@@ -2,6 +2,14 @@ package ru.epam.training;
 
 import java.util.*;
 
+/**
+ * Simple implementation of a Map interface, don`t have ability to change size.
+ * It has only default capacity.
+ *
+ * @param <K> key for entry of the map
+ * @param <V> value for entry of the map
+ */
+
 public class CustomHashMap<K, V> implements Map<K, V> {
 
     private static final int DEFAULT_CAPACITY = 16;
@@ -101,9 +109,14 @@ public class CustomHashMap<K, V> implements Map<K, V> {
         return null;
     }
 
+    /**
+     * @param m map for insert
+     * @throws NullPointerException if m == null
+     */
+
     @Override
     public void putAll(Map<? extends K, ? extends V> m) {
-        for(Map.Entry<? extends K, ? extends V> insertionEntry : m.entrySet()){
+        for (Map.Entry<? extends K, ? extends V> insertionEntry : m.entrySet()) {
             this.put(insertionEntry.getKey(), insertionEntry.getValue());
         }
     }
@@ -139,10 +152,16 @@ public class CustomHashMap<K, V> implements Map<K, V> {
         int bucketNumber = hash(key);
         CustomEntry<K, V> currentEntry = buckets[bucketNumber];
         while (currentEntry != null) {
-            if (key.equals(currentEntry.key)) {
-                return currentEntry;
+            if (currentEntry.key == null) {
+                if (key == null) {
+                    return currentEntry;
+                }
             } else {
-                currentEntry = currentEntry.next;
+                if (key.equals(currentEntry.key)) {
+                    return currentEntry;
+                } else {
+                    currentEntry = currentEntry.next;
+                }
             }
         }
         return null;
@@ -242,15 +261,15 @@ public class CustomHashMap<K, V> implements Map<K, V> {
         @Override
         public boolean contains(Object o) {
             if (o instanceof Map.Entry) {
-                return CustomHashMap.this.containsKey(((Entry)o).getKey());
+                return CustomHashMap.this.containsKey(((Entry) o).getKey());
             }
             return false;
         }
 
         @Override
         public boolean remove(Object o) {
-            if (o instanceof Map.Entry){
-                return CustomHashMap.this.remove(((Entry)o).getKey()) != null;
+            if (o instanceof Map.Entry) {
+                return CustomHashMap.this.remove(((Entry) o).getKey()) != null;
             }
             return false;
         }
